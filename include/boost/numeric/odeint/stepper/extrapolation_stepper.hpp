@@ -176,11 +176,11 @@ class extrapolation_stepper : public explicit_error_stepper_base
             in, detail::bind( &stepper_type::template resize_impl< StateIn >,
                               detail::ref( *this ), detail::_1 ) );
         size_t k = 0;
-        m_midpoint.set_steps( m_interval_sequence[k] );
+        m_midpoint.set_steps( static_cast<unsigned short>(m_interval_sequence[k]) );
         m_midpoint.do_step( system, in, dxdt, t, out, dt );
         for ( k = 1; k <= m_k_max; ++k )
         {
-            m_midpoint.set_steps( m_interval_sequence[k] );
+            m_midpoint.set_steps( static_cast<unsigned short>(m_interval_sequence[k]) );
             m_midpoint.do_step( system, in, dxdt, t, m_table[k - 1].m_v, dt );
             extrapolate( k, m_table, m_coeff, out );
         }
@@ -246,7 +246,7 @@ class extrapolation_stepper : public explicit_error_stepper_base
     {
         static const value_type val1 = static_cast< value_type >( 1.0 );
 
-        for ( int j = k - 1; j > 0; --j )
+        for ( size_t j = k - 1; j > 0; --j )
         {
             stepper_base_type::m_algebra.for_each3(
                 table[j - 1].m_v, table[j].m_v, table[j - 1].m_v,

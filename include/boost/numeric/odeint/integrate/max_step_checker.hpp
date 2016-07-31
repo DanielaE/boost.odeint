@@ -23,6 +23,10 @@
 #include <boost/throw_exception.hpp>
 #include <boost/numeric/odeint/util/odeint_error.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4996) // unsafe function
+#endif
 
 namespace boost {
 namespace numeric {
@@ -110,5 +114,9 @@ public:
 } // namespace odeint
 } // namespace numeric
 } // namespace boost
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif

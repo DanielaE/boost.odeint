@@ -179,7 +179,7 @@ public:
 
         for( size_t k = 0 ; k <= m_current_k_opt+1 ; k++ )
         {
-            m_midpoint.set_steps( m_interval_sequence[k] );
+            m_midpoint.set_steps( static_cast<unsigned short>(m_interval_sequence[k]) );
             if( k == 0 )
             {
                 m_midpoint.do_step( system , in , dxdt , t , out , dt , m_mp_states[k].m_v , m_derivs[k]);
@@ -275,7 +275,7 @@ public:
             sys( out , dxdt_new , t+dt );
 
             //prepare dense output
-            value_type error = prepare_dense_output( m_k_final , in , dxdt , out , dxdt_new , dt );
+            value_type error = prepare_dense_output( static_cast<int>(m_k_final) , in , dxdt , out , dxdt_new , dt );
 
             if( error > static_cast<value_type>(10) ) // we are not as accurate for interpolation as for the steps
             {
@@ -393,7 +393,7 @@ private:
     //polynomial extrapolation, see http://www.nr.com/webnotes/nr3web21.pdf
     {
         static const value_type val1( 1.0 );
-        for( int j=k-1 ; j>0 ; --j )
+        for( size_t j=k-1 ; j>0 ; --j )
         {
             m_algebra.for_each3( table[j-1].m_v , table[j].m_v , table[j-1].m_v ,
                                  typename operations_type::template scale_sum2< value_type , value_type >( val1 + coeff[k + order_start_index][j + order_start_index] ,
@@ -411,7 +411,7 @@ private:
     {
         // result is written into table[0]
         static const value_type val1( 1.0 );
-        for( int j=k ; j>1 ; --j )
+        for( size_t j=k ; j>1 ; --j )
         {
             m_algebra.for_each3( table[j-1].m_v , table[j].m_v , table[j-1].m_v ,
                                  typename operations_type::template scale_sum2< value_type , value_type >( val1 + coeff[k + order_start_index][j + order_start_index - 1] ,
@@ -452,14 +452,14 @@ private:
     {
         if( k == m_current_k_opt-1 )
         {
-            const value_type d = m_interval_sequence[m_current_k_opt] * m_interval_sequence[m_current_k_opt+1] /
-                (m_interval_sequence[0]*m_interval_sequence[0]);
+            const value_type d = static_cast<value_type>(m_interval_sequence[m_current_k_opt] * m_interval_sequence[m_current_k_opt+1] /
+                (m_interval_sequence[0]*m_interval_sequence[0]));
             //step will fail, criterion 17.3.17 in NR
             return ( error > d*d );
         }
         else if( k == m_current_k_opt )
         {
-            const value_type d = m_interval_sequence[m_current_k_opt+1] / m_interval_sequence[0];
+            const value_type d = static_cast<value_type>(m_interval_sequence[m_current_k_opt+1] / m_interval_sequence[0]);
             return ( error > d*d );
         } else
             return error > 1.0;
@@ -529,7 +529,7 @@ private:
     template< class DerivIn >
     void calculate_finite_difference( size_t j , size_t kappa , value_type fac , const DerivIn &dxdt )
     {
-        const int m = m_interval_sequence[j]/2-1;
+        const int m = static_cast<int>(m_interval_sequence[j]/2-1);
         if( kappa == 0) // no calculation required for 0th derivative of f
         {
             m_algebra.for_each2( m_diffs[0][j].m_v , m_derivs[j][m].m_v ,
@@ -538,7 +538,7 @@ private:
         else
         {
             // calculate the index of m_diffs for this kappa-j-combination
-            const int j_diffs = j - kappa/2;
+            const int j_diffs = static_cast<int>(j - kappa/2);
 
             m_algebra.for_each2( m_diffs[kappa][j_diffs].m_v , m_derivs[j][m+kappa].m_v ,
                                  typename operations_type::template scale_sum1< value_type >( fac ) );
@@ -551,7 +551,7 @@ private:
                 {
                     m_algebra.for_each3( m_diffs[kappa][j_diffs].m_v , m_diffs[kappa][j_diffs].m_v , m_derivs[j][i].m_v ,
                                          typename operations_type::template scale_sum2< value_type , value_type >( 1.0 ,
-                                                                                                                   sign * fac * boost::math::binomial_coefficient< value_type >( kappa , c ) ) );
+                                                                                                                   sign * fac * boost::math::binomial_coefficient< value_type >( static_cast<unsigned>(kappa) , c ) ) );
                 }
                 else
                 {

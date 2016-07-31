@@ -42,6 +42,11 @@
 #include <boost/numeric/odeint/stepper/controlled_step_result.hpp>
 #include <boost/numeric/odeint/stepper/stepper_categories.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // unreferenced formal parameter
+#endif
+
 namespace boost {
 namespace numeric {
 namespace odeint {
@@ -143,7 +148,6 @@ public:
             error = max BOOST_PREVENT_MACRO_SUBSTITUTION (
                     static_cast<value_type>( pow( static_cast<value_type>(5.0) , -static_cast<value_type>(stepper_order) ) ) ,
                     error);
-            time_type dt_old = dt;
             //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
             dt *= static_cast<value_type>(9)/static_cast<value_type>(10) *
                   pow(error, static_cast<value_type>(-1) / stepper_order);
@@ -1010,5 +1014,8 @@ private:
 } // numeric
 } // boost
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_STEPPER_CONTROLLED_RUNGE_KUTTA_HPP_INCLUDED

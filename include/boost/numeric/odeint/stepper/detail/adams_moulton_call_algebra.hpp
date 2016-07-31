@@ -20,6 +20,11 @@
 
 #include <boost/assert.hpp> 
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // unreferenced formal parameter
+#endif
+
 namespace boost {
 namespace numeric {
 namespace odeint {
@@ -144,5 +149,8 @@ struct adams_moulton_call_algebra< 8 , Algebra , Operations >
 } // boost
 
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_STEPPER_DETAIL_ADAMS_MOULTON_CALL_ALGEBRA_HPP_INCLUDED

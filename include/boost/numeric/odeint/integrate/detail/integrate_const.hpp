@@ -80,7 +80,7 @@ size_t integrate_const(
 
     Time time = start_time;
     const Time time_step = dt;
-    int real_steps = 0;
+    size_t real_steps = 0;
     int step = 0;
     
     while( less_eq_with_sign( static_cast<Time>(time+time_step) , end_time , dt ) )

@@ -42,6 +42,11 @@
 #include <boost/numeric/odeint/stepper/controlled_step_result.hpp>
 #include <boost/numeric/odeint/stepper/stepper_categories.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // unreferenced formal parameter
+#endif
+
 namespace boost {
 namespace numeric {
 namespace odeint {
@@ -1010,5 +1015,8 @@ private:
 } // numeric
 } // boost
 
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_STEPPER_CONTROLLED_RUNGE_KUTTA_HPP_INCLUDED

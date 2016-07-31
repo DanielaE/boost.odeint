@@ -26,6 +26,10 @@
 #define ODEINT_PATCH_LEVEL 0
 #define ODEINT_VERSION ( ODEINT_MAJOR_VERSION * 100000 + ODEINT_MINOR_VERSION * 100 + ODEINT_PATCH_LEVEL )
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4127) // conditional expression is constant
+#endif
 
 namespace boost {
 namespace numeric {
@@ -51,5 +55,9 @@ inline std::string get_version_string( void )
 }
 }
 }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_VERSION_HPP_INCLUDED

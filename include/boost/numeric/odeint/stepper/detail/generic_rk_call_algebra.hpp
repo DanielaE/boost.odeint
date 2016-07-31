@@ -18,6 +18,11 @@
 #ifndef BOOST_NUMERIC_ODEINT_STEPPER_DETAIL_GENERIC_RK_CALL_ALGEBRA_HPP_INCLUDED
 #define BOOST_NUMERIC_ODEINT_STEPPER_DETAIL_GENERIC_RK_CALL_ALGEBRA_HPP_INCLUDED
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4100) // unreferenced formal parameter
+#pragma warning(disable: 4101) // unreferenced local variable
+#endif
 
 namespace boost {
 namespace numeric {
@@ -259,5 +264,9 @@ struct generic_rk_call_algebra< 13 , Algebra >
 }
 }
 }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_STEPPER_DETAIL_GENERIC_RK_CALL_ALGEBRA_HPP_INCLUDED

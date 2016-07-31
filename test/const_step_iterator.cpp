@@ -35,6 +35,10 @@
 #include "dummy_odes.hpp"
 #include "dummy_observers.hpp"
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4700) // uninitialized local variable 'stepper' used
+#endif
+
 namespace mpl = boost::mpl;
 using namespace boost::numeric::odeint;
 

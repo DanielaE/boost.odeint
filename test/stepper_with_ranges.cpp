@@ -61,7 +61,7 @@ struct algebra_dispatcher< state_type2 >
 struct system1
 {
     template< class State , class Deriv >
-    void operator()( const State &x_ , Deriv &dxdt_ , double t )
+    void operator()( const State &x_ , Deriv &dxdt_ , double )
     {
         typename boost::range_iterator< const State >::type x = boost::begin( x_ );
         typename boost::range_iterator< Deriv >::type dxdt = boost::begin( dxdt_ );
@@ -89,7 +89,7 @@ struct system1
 struct system2
 {
     template< class State , class Deriv >
-    void operator()( const State &x_ , Deriv &dxdt_ , double t )
+    void operator()( const State & , Deriv &dxdt_ , double )
     {
         typename boost::range_iterator< Deriv >::type dxdt = boost::begin( dxdt_ );
 
@@ -116,7 +116,7 @@ struct system2
 struct ham_sys
 {
     template< class State , class Deriv >
-    void operator()( const State &x_ , Deriv &dxdt_ )
+    void operator()( const State & , Deriv &dxdt_ )
     {
         typename boost::range_iterator< Deriv >::type dxdt = boost::begin( dxdt_ );
         dxdt[0] = 1.0;

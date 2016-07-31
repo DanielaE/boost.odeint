@@ -31,7 +31,7 @@
 struct constant_system_functor_standard
 {
     template< class State , class Deriv , class Time >
-    void operator()( const State &x , Deriv &dxdt , const Time t ) const
+    void operator()( const State & , Deriv &dxdt , const Time ) const
     {
         dxdt[0] = 1.0;
     }
@@ -40,7 +40,7 @@ struct constant_system_functor_standard
 struct constant_system_functor_vector_space
 {
     template< class State , class Deriv , class Time >
-    void operator()( const State &x , Deriv &dxdt , const Time t  ) const
+    void operator()( const State & , Deriv &dxdt , const Time  ) const
     {
         dxdt = 1.0;
     }
@@ -49,7 +49,7 @@ struct constant_system_functor_vector_space
 struct constant_system_functor_fusion
 {
     template< class State , class Deriv , class Time >
-    void operator()( const State &x , Deriv &dxdt , const Time t ) const
+    void operator()( const State &x , Deriv &dxdt , const Time ) const
     {
         boost::fusion::at_c< 0 >( dxdt ) = boost::fusion::at_c< 0 >( x ) / Time( 1.0 );
     }
@@ -58,7 +58,7 @@ struct constant_system_functor_fusion
 struct lorenz
 {
     template< typename State , typename Deriv , typename Time >
-    void operator()( const State& x , Deriv& dxdt , const Time& t ) const
+    void operator()( const State& x , Deriv& dxdt , const Time& ) const
     {
         const Time sigma = 10.0;
         const Time R = 28.0;
@@ -70,19 +70,19 @@ struct lorenz
 };
 
 template< class State , class Deriv , class Time >
-void constant_system_standard( const State &x , Deriv &dxdt , const Time t )
+void constant_system_standard( const State & , Deriv &dxdt , const Time )
 {
     dxdt[0] = 1.0;
 }
 
 template< class State , class Deriv , class Time >
-void constant_system_vector_space( const State &x , Deriv &dxdt , const Time t ) 
+void constant_system_vector_space( const State & , Deriv &dxdt , const Time ) 
 {
     dxdt = 1.0;
 }
 
 template< class State , class Deriv , class Time >
-void constant_system_fusion( const State &x , Deriv &dxdt , const Time t ) 
+void constant_system_fusion( const State &x , Deriv &dxdt , const Time ) 
 {
     boost::fusion::at_c< 0 >( dxdt ) = boost::fusion::at_c< 0 >( x ) / Time( 1.0 );
 }
@@ -96,7 +96,7 @@ void constant_system_fusion( const State &x , Deriv &dxdt , const Time t )
 struct constant_mom_func
 {
     template< class StateIn , class StateOut >
-    void operator()( const StateIn &q , StateOut &dp ) const
+    void operator()( const StateIn & , StateOut &dp ) const
     {
         dp[0] = 1.0;
     }
@@ -116,7 +116,7 @@ struct default_coor_func
 struct constant_mom_func_vector_space_1d
 {
     template< class T >
-    void operator()( const T &q , T &dp ) const
+    void operator()( const T & , T &dp ) const
     {
         dp = 1.0;
     }

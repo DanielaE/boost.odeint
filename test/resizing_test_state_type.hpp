@@ -46,7 +46,7 @@ namespace odeint {
     template<>
     struct same_size_impl< test_array_type , test_array_type >
     {
-        static bool same_size( const test_array_type &x1 , const test_array_type &x2 )
+        static bool same_size( const test_array_type & , const test_array_type & )
         {
             return false;
         }
@@ -55,7 +55,7 @@ namespace odeint {
     template<>
     struct resize_impl< test_array_type , test_array_type >
     {
-        static void resize( test_array_type &x1 , const test_array_type &x2 )
+        static void resize( test_array_type & , const test_array_type & )
         {
             adjust_size_count++;
         }

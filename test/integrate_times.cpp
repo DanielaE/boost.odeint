@@ -67,7 +67,7 @@ struct push_back_time
     push_back_time( std::vector< double > &times )
     :  m_times( times ) { }
 
-    void operator()( const state_type &x , double t )
+    void operator()( const state_type & , double t )
     {
         m_times.push_back( t );
     }
@@ -210,7 +210,7 @@ BOOST_AUTO_TEST_CASE( test_integrate_times_overshoot )
     std::cout << "test rk4 stepper" << std::endl;
     // simple stepper
     std::vector<double> obs_times;
-    int steps = integrate_times( runge_kutta4< state_type >() , lorenz , x ,
+    size_t steps = integrate_times( runge_kutta4< state_type >() , lorenz , x ,
                                  times.begin() , times.end() ,
                                  dt , push_back_time( obs_times ) );
 // different behavior for the iterator based integrate implementaton

@@ -65,7 +65,7 @@ typedef units::quantity< si::acceleration , value_type > acceleration_type;
 typedef fusion::vector< length_type , velocity_type > state_type;
 typedef fusion::vector< velocity_type , acceleration_type > deriv_type;
 
-void oscillator( const state_type &x , deriv_type &dxdt , time_type t )
+void oscillator( const state_type &x , deriv_type &dxdt , time_type )
 {
     const units::quantity< si::frequency , value_type > omega = 1.0 * si::hertz;
     fusion::at_c< 0 >( dxdt ) = fusion::at_c< 1 >( x );

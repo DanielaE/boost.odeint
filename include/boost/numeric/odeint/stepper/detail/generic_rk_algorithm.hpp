@@ -41,6 +41,11 @@
 #include <boost/numeric/odeint/stepper/detail/generic_rk_operations.hpp>
 #include <boost/numeric/odeint/util/bind.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4127) // conditional expression is constant
+#endif
+
 namespace boost {
 namespace numeric {
 namespace odeint {
@@ -243,5 +248,9 @@ private:
 }
 }
 }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_NUMERIC_ODEINT_STEPPER_DETAIL_GENERIC_RK_ALGORITHM_HPP_INCLUDED

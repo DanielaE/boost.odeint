@@ -219,7 +219,7 @@ public:
         for( size_t k = 0 ; k <= m_current_k_opt+1 ; k++ )
         {
             /* the stage counts are stored in m_interval_sequence */
-            m_midpoint.set_steps( m_interval_sequence[k] );
+            m_midpoint.set_steps( static_cast<unsigned short>(m_interval_sequence[k]) );
             if( k == 0 )
             {
                 m_midpoint.do_step( system , in , dxdt , t , out , dt );
@@ -401,7 +401,7 @@ private:
     */
     {
         static const value_type val1 = static_cast< value_type >( 1.0 );
-        for( int j=k-1 ; j>0 ; --j )
+        for( size_t j=k-1 ; j>0 ; --j )
         {
             m_algebra.for_each3( table[j-1].m_v , table[j].m_v , table[j-1].m_v ,
                                  typename operations_type::template scale_sum2< value_type , value_type >( val1 + coeff[k][j] , -coeff[k][j] ) );
@@ -468,14 +468,14 @@ private:
     {
         if( k == m_current_k_opt-1 )
         {
-            const value_type d = m_interval_sequence[m_current_k_opt] * m_interval_sequence[m_current_k_opt+1] /
-                (m_interval_sequence[0]*m_interval_sequence[0]);
+            const value_type d = static_cast<value_type>(m_interval_sequence[m_current_k_opt] * m_interval_sequence[m_current_k_opt+1] /
+                (m_interval_sequence[0]*m_interval_sequence[0]));
             //step will fail, criterion 17.3.17 in NR
             return ( error > d*d );
         }
         else if( k == m_current_k_opt )
         {
-            const value_type d = m_interval_sequence[m_current_k_opt] / m_interval_sequence[0];
+            const value_type d = static_cast<value_type>(m_interval_sequence[m_current_k_opt] / m_interval_sequence[0]);
             return ( error > d*d );
         } else
             return error > 1.0;

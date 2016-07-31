@@ -143,7 +143,7 @@ private:
 
     void solve( state_type &x , matrix_type &m )
     {
-        int res = boost::numeric::ublas::lu_factorize( m , m_pm.m_v );
+        size_t res = boost::numeric::ublas::lu_factorize( m , m_pm.m_v );
         if( res != 0 ) std::exit(0);
         boost::numeric::ublas::lu_substitute( m , m_pm.m_v , x );
     }

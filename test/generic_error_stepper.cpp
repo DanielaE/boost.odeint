@@ -42,7 +42,7 @@ namespace fusion = boost::fusion;
 typedef double value_type;
 typedef boost::array< value_type , 2 > state_type;
 
-void sys( const state_type &x , state_type &dxdt , const value_type &t )
+void sys( const state_type &x , state_type &dxdt , const value_type & )
 {
     dxdt[ 0 ] = x[ 0 ] + 2 * x[ 1 ];
     dxdt[ 1 ] = x[ 1 ];

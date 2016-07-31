@@ -24,7 +24,7 @@
 using namespace boost::unit_test;
 
 template< typename T >
-void func( T t )
+void func( T )
 {
     typedef typename boost::numeric::odeint::unwrap_reference< T >::type type;
 }

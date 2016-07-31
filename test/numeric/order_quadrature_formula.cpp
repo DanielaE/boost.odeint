@@ -45,7 +45,7 @@ struct monomial
 
     monomial(int p = 0) : power( p ){};
 
-    void operator()( const state_type &x , state_type &dxdt , const time_type t )
+    void operator()( const state_type & , state_type &dxdt , const time_type t )
     {
         dxdt = ( 1.0 + power ) * pow( t, power );
     }

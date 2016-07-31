@@ -38,7 +38,7 @@ namespace mpl = boost::mpl;
 
 typedef double state_type;
 
-void rhs( const state_type &x , state_type &dxdt , const double t )
+void rhs( const state_type & , state_type &dxdt , const double )
 {
     dxdt = 1;
 }

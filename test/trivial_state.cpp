@@ -46,7 +46,7 @@ namespace mpl = boost::mpl;
 struct constant_system
 {
     template< typename T >
-    void operator()( const T &x , T &dxdt , const T t ) const
+    void operator()( const T & , T &dxdt , const T ) const
     { dxdt = 1.0; }
 };
 
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE( test_do_step , T, stepper_types )
     stepper_type stepper;
     typename stepper_type::state_type x = 0.0;
     typename stepper_type::time_type t = 0.0;
-    typename stepper_type::time_type dt = 0.1;
+    typename stepper_type::time_type dt = stepper_type::time_type(0.1);
     stepper.do_step( constant_system() , x , t , dt );
     BOOST_CHECK_CLOSE( x , 0.1 , 100*std::numeric_limits< typename stepper_type::state_type >::epsilon() );
 
@@ -101,8 +101,8 @@ BOOST_AUTO_TEST_CASE_TEMPLATE( test_integrate , T , error_stepper_types )
     typename stepper_type::state_type x = 0.0;
     typename stepper_type::time_type t0 = 0.0;
     typename stepper_type::time_type t1 = 1.0;
-    typename stepper_type::time_type dt = 0.1;
-    integrate_adaptive( make_controlled< stepper_type >( 1e-6 , 1e-6 ) , constant_system() , x , t0 , t1 , dt );
+    typename stepper_type::time_type dt = stepper_type::time_type(0.1);
+    integrate_adaptive( make_controlled< stepper_type >( stepper_type::time_type(1e-6) , stepper_type::time_type(1e-6) ) , constant_system() , x , t0 , t1 , dt );
     BOOST_CHECK_CLOSE( x , 1.0 , 100*std::numeric_limits< typename stepper_type::state_type >::epsilon() );
 }
 

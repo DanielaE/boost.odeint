@@ -56,7 +56,7 @@ namespace mpl = boost::mpl;
 
 
 
-void constant_system( const test_array_type &x , test_array_type &dxdt , double t ) { dxdt[0] = 1.0; }
+void constant_system( const test_array_type & , test_array_type &dxdt , double ) { dxdt[0] = 1.0; }
 
 
 BOOST_AUTO_TEST_SUITE( check_resize_test )

@@ -36,6 +36,10 @@
 
 #include <boost/mpl/list.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4101) // unreferenced local variable
+#endif
+
 namespace units = boost::units;
 namespace si = boost::units::si;
 
@@ -51,7 +55,6 @@ range_algebra algebra;
 
 BOOST_AUTO_TEST_CASE_TEMPLATE( for_each2 , algebra_type , algebra_types )
 {
-    algebra_type algebra;
     boost::array< double , 2 > x1 = {{ 1.0 , 1.0 }} , x2 = {{ 2.0 , 2.0 }};
     algebra.for_each2( x1 , x2 , default_operations::scale_sum1<>( 1.0 ) );
     BOOST_CHECK_CLOSE( x1[0] , 2.0 , 1.0e-10 );
@@ -128,7 +131,6 @@ BOOST_AUTO_TEST_CASE_TEMPLATE( norm_inf , algebra_type , algebra_types )
 
 BOOST_AUTO_TEST_CASE( for_each2_with_units )
 {
-    range_algebra algebra;
     typedef units::quantity< si::time , double > time_type;
     typedef units::quantity< si::length , double > length_type;
     typedef units::quantity< si::velocity , double > velocity_type;
